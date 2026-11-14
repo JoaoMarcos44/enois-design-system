@@ -30,6 +30,10 @@ export function GlobalSearch({ results, isFetching, onQueryChange, onSelect }: G
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
+      // No mobile o resultado vive num portal em <body>, fora do fieldRef (desktop).
+      // Sem esta guarda o mousedown no resultado fazia setOpen(false) e o botão sumia
+      // antes do click disparar.
+      if (mobileOpen) return;
       if (fieldRef.current && !fieldRef.current.contains(event.target as Node)) {
         setOpen(false);
       }
@@ -37,22 +41,29 @@ export function GlobalSearch({ results, isFetching, onQueryChange, onSelect }: G
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [mobileOpen]);
 
   useEffect(() => {
     if (mobileOpen) inputRef.current?.focus();
   }, [mobileOpen]);
 
-  // Fecha a busca mobile ao scrollar pra baixo.
+  // Fecha a busca mobile ao scrollar pra baixo. O timeout evita que o scroll causado pelo
+  // fechamento do teclado virtual (ao tocar num resultado) desmonte o portal antes do click.
   useEffect(() => {
     if (!mobileOpen) return;
+    let timer: ReturnType<typeof setTimeout>;
     const onScroll = () => {
-      setMobileOpen(false);
-      setOpen(false);
-      setQuery("");
+      timer = setTimeout(() => {
+        setMobileOpen(false);
+        setOpen(false);
+        setQuery("");
+      }, 120);
     };
     window.addEventListener("scroll", onScroll, { passive: true, once: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [mobileOpen]);
 
   const closeSearch = () => {
