@@ -105,7 +105,7 @@ export const networkMessages: NetworkMessages = {
     routesTitle: "Rotas que a rede oferece",
     routesPlaceholder: "Escolha uma rota",
     routesHint:
-      "O nó chama a rota pelo nome: o endereço vive só na configuração assinada que ele recebe. Pedir uma rota enfileira a chamada neste nó, e o resultado volta como evidência — status, tamanho e resumo —, nunca o corpo.",
+      "O nó chama a rota pelo nome: o endereço vive só na configuração assinada que ele recebe. Pedir uma rota enfileira a chamada neste nó, e o resultado volta como evidência (status, tamanho e resumo), nunca o corpo.",
     routesEmpty: "Nenhuma rota declarada na rede. O nó não tem para onde chamar.",
     requestRoute: "Pedir rota",
     apiRequestsTitle: "Requisições em aberto",
