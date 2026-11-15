@@ -380,4 +380,19 @@ export const profileMessages: ProfileMessages = {
     readmeError: "Não foi possível ler o README agora.",
     openReadme: "Abrir repositório",
   },
+
+  profileGallery: {
+    loading: "Carregando as fotos…",
+    error: "Não foi possível abrir as fotos. Tente de novo.",
+    empty: "Nenhuma foto por aqui ainda.",
+    loadMore: "Carregar mais fotos",
+    openPhoto: "Abrir foto",
+    revealPhoto: "Foto sensível: toque para revelar",
+    prev: "Foto anterior",
+    next: "Próxima foto",
+    counter: (index, total) => `Foto ${index} de ${total}`,
+    zoomIn: "Ampliar",
+    zoomOut: "Reduzir",
+    resetZoom: "Voltar ao tamanho normal",
+  },
 };

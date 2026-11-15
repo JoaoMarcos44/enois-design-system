@@ -349,4 +349,19 @@ export type ProfileMessages = {
     readmeError: string;
     openReadme: string;
   };
+
+  profileGallery: {
+    loading: string;
+    error: string;
+    empty: string;
+    loadMore: string;
+    openPhoto: string;
+    revealPhoto: string;
+    prev: string;
+    next: string;
+    counter: (index: number, total: number) => string;
+    zoomIn: string;
+    zoomOut: string;
+    resetZoom: string;
+  };
 };
