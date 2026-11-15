@@ -193,6 +193,34 @@ falls back to the default `quintal`. The owner sees a hint about the part that g
 />
 ```
 
+### Navegação pela citação de resposta
+
+`MessageBubble` aceita `onReplyQuoteClick?: () => void`. Quando há citação e callback,
+a citação é um botão nativo `type="button"`, nomeado por
+`messageBubble.goToOriginal` (padrão: "Ir para mensagem original"), com foco visível
+e ativação por Enter/Espaço. A ativação interrompe a propagação do clique para não
+selecionar também o balão. Sem callback ou no modo de seleção, a citação não é
+interativa: o clique no texto chega a `onToggleSelect`, sem navegar.
+
+Passe `message.id` para expor `id="message-{id}"` na raiz da mensagem. A raiz recebe
+`tabIndex={-1}` para foco programático, sem criar uma parada adicional de Tab.
+Chamadores sem ID não recebem um identificador DOM sintético. O aplicativo é
+responsável por localizar/carregar a original, decifrar a citação e informar
+indisponibilidade. Localize o destino dentro da thread ativa, não globalmente:
+o dock e a página podem exibir a mesma conversa. Foque com `preventScroll: true`
+e role somente o quadro de mensagens daquela thread.
+
+`ConversationThread` rola até o fim ao receber o primeiro `newestMessageId` e quando
+esse ID muda, não quando mensagens antigas são acrescentadas com o mesmo ID mais
+recente. Se uma nova mensagem chegar durante a navegação, passe
+`suppressAutoScroll={true}` para impedir que ela desloque a leitura. A suspensão
+consome as mudanças de `newestMessageId`: removê-la não reproduz uma rolagem atrasada.
+`messagesScrollRef` aceita ref de objeto ou callback e expõe o quadro
+`overflow-y-auto`, preservando a limpeza de refs por callback do React.
+Evite `scrollIntoView` no nível da página, especialmente no mobile.
+As stories `Thread` e `ReplyNavigation` demonstram o destino, ambos os lados,
+citações longas, seleção e callback opcional com dados fictícios.
+
 ### Card themes
 
 `cardTheme(id)` maps a shop `CARD_THEME` item to the colors of the profile card: the seasonal

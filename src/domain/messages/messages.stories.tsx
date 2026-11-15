@@ -1,3 +1,5 @@
+import { useRef, useState } from "react";
+
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { ChatDockWindow } from "./chat-dock-window.js";
@@ -50,52 +52,121 @@ export const List: StoryObj = {
 };
 
 export const Thread: StoryObj = {
-  render: () => (
-    <div className="flex h-[600px] max-w-lg flex-col">
-      <ConversationThread
-        peer={peer}
-        profileHref="#"
-        loading={false}
-        empty={false}
-        newestMessageId="2"
-        hasOlderMessages
-        loadingOlder={false}
-        onLoadOlder={() => {}}
-        selecting={false}
-        selectedCount={0}
-        onStartSelecting={() => {}}
-        onCancelSelection={() => {}}
-        deletePending={false}
-        onDeleteSelected={() => {}}
-        sendPending={false}
-        onSend={() => Promise.resolve()}
-        servicesOpen={false}
-        onServicesOpenChange={() => {}}
-        servicesLoading={false}
-        services={[]}
-        serviceHref={(id) => `/servicos#oferta-${id}`}
-      >
-        <MessageBubble
-          message={{ reactions: { LOVE: 1 } }}
-          isMe={false}
+  render: function ThreadStory() {
+    const scope = useRef<HTMLDivElement>(null);
+    return (
+      <div ref={scope} className="flex h-[600px] max-w-lg flex-col">
+        <ConversationThread
           peer={peer}
           profileHref="#"
-          content={<p>Oi! Vi teu portfólio, curti muito.</p>}
-          timeLabel="10 min"
-          emojis={emojis}
-        />
+          loading={false}
+          empty={false}
+          newestMessageId="2"
+          hasOlderMessages
+          loadingOlder={false}
+          onLoadOlder={() => {}}
+          selecting={false}
+          selectedCount={0}
+          onStartSelecting={() => {}}
+          onCancelSelection={() => {}}
+          deletePending={false}
+          onDeleteSelected={() => {}}
+          sendPending={false}
+          onSend={() => Promise.resolve()}
+          servicesOpen={false}
+          onServicesOpenChange={() => {}}
+          servicesLoading={false}
+          services={[]}
+          serviceHref={(id) => `/servicos#oferta-${id}`}
+        >
+          <MessageBubble
+            message={{ id: "story-original", reactions: { LOVE: 1 } }}
+            isMe={false}
+            peer={peer}
+            profileHref="#"
+            content={<p>Oi! Vi teu portfólio, curti muito.</p>}
+            timeLabel="10 min"
+            emojis={emojis}
+          />
+          <MessageBubble
+            message={{ id: "story-reply", myReaction: "LIKE", reactions: { LIKE: 1 } }}
+            isMe
+            readByOther
+            profileHref="#"
+            content={<p>Valeu demais!</p>}
+            replyQuote={{
+              from: peer.name,
+              text: "Oi! Vi teu portfólio, curti muito.",
+              isMe: false,
+            }}
+            onReplyQuoteClick={() => {
+              scope.current?.querySelector<HTMLElement>('[id="message-story-original"]')?.focus();
+            }}
+            timeLabel="agora"
+            emojis={emojis}
+          />
+        </ConversationThread>
+      </div>
+    );
+  },
+};
+
+/** Synthetic messages: native activation, optional callback and selection mode. */
+export const ReplyNavigation: StoryObj = {
+  render: function ReplyNavigationStory() {
+    const scope = useRef<HTMLDivElement>(null);
+    const [selecting, setSelecting] = useState(false);
+    const [selected, setSelected] = useState(false);
+    const navigate = () => {
+      scope.current?.querySelector<HTMLElement>('[id="message-demo-original"]')?.focus();
+    };
+    const quote = {
+      from: "Pessoa fictícia",
+      text: "Mensagem original de demonstração.",
+      isMe: false,
+    };
+    return (
+      <div ref={scope} className="max-w-lg space-y-4">
+        <button type="button" onClick={() => setSelecting(!selecting)} aria-pressed={selecting}>
+          {selecting ? "Sair da seleção" : "Selecionar mensagens"}
+        </button>
+
         <MessageBubble
-          message={{ myReaction: "LIKE", reactions: { LIKE: 1 } }}
-          isMe
-          readByOther
+          message={{ id: "demo-original" }}
+          isMe={false}
           profileHref="#"
-          content={<p>Valeu demais!</p>}
-          timeLabel="agora"
-          emojis={emojis}
+          content={<p>{quote.text}</p>}
+          timeLabel="10:00"
+          emojis={{}}
         />
-      </ConversationThread>
-    </div>
-  ),
+        {[false, true].map((isMe) => (
+          <MessageBubble
+            key={String(isMe)}
+            message={{ id: `demo-reply-${isMe}` }}
+            isMe={isMe}
+            profileHref="#"
+            replyQuote={{ ...quote, isMe, text: quote.text.repeat(12) }}
+            onReplyQuoteClick={navigate}
+            selecting={selecting}
+            selected={selected}
+            onToggleSelect={() => selecting && setSelected(!selected)}
+            content={<p>Resposta fictícia para testar mouse, Enter e Espaço.</p>}
+            timeLabel="10:01"
+            emojis={{}}
+          />
+        ))}
+        <MessageBubble
+          message={{}}
+          isMe={false}
+          profileHref="#"
+          replyQuote={quote}
+          content={<p>Citação sem ação de navegação disponível.</p>}
+          timeLabel="10:02"
+          emojis={{}}
+        />
+      </div>
+    );
+  },
 };
 
 /** Long title and long category in the service chooser: both stay on the row (issue #199). */

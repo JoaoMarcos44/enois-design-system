@@ -15,6 +15,7 @@ export type ConversationsMessages = {
     react: string;
     report: string;
     reply: string;
+    goToOriginal: string;
   };
   e2eSetupBanner: {
     prompt: string;
