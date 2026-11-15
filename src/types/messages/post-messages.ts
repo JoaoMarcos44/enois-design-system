@@ -45,6 +45,8 @@ export type PostMessages = {
     topic: string;
     momentExpiry: (hours: number) => string;
     momentExpiryTitle: string;
+    instanteExpiry: (minutes: number) => string;
+    instanteExpiryTitle: string;
     sealSeeWho: string;
     repostedWithOpinion: string;
     repostedBy: (name: string | null | undefined) => string;

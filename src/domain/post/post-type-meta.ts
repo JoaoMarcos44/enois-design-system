@@ -43,6 +43,11 @@ export const POST_TYPE_META: Record<PostType, PostTypeMeta> = {
     className: "bg-secondary/30 text-text-strong",
     classAvatar: "",
   },
+  INSTANTE: {
+    // Mesma família visual do Momento (o par do secundário pálido é o que contrasta aqui).
+    className: "bg-secondary/30 text-text-strong",
+    classAvatar: "",
+  },
   DIVERTIDO: {
     className: "bg-accent text-accent-foreground",
     classAvatar: "",
