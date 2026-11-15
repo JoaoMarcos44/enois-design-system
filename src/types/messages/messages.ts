@@ -4,6 +4,7 @@ import type { AuthMessages } from "./auth-messages.js";
 import type { AvatarMessages } from "./avatar-messages.js";
 import type { BlogMessages } from "./blog-messages.js";
 import type { CalendarMessages } from "./calendar-messages.js";
+import type { ColagemMessages } from "./colagem-messages.js";
 import type { CommunitiesMessages } from "./communities-messages.js";
 import type { CompaniesMessages } from "./companies-messages.js";
 import type { ConversationsMessages } from "./conversations-messages.js";
@@ -79,4 +80,5 @@ export type Messages = UiMessages &
   WhatsNewMessages &
   ReleaseNotesMessages &
   CalendarMessages &
-  RoleplayMessages;
+  RoleplayMessages &
+  ColagemMessages;

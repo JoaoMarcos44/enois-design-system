@@ -12,6 +12,7 @@ export * from "./shell/index.js";
 export * from "./support-us/index.js";
 export * from "./wellbeing/index.js";
 export * from "./post/index.js";
+export * from "./colagem/index.js";
 export * from "./games/index.js";
 export * from "./appearance/index.js";
 export * from "./wallet/index.js";
