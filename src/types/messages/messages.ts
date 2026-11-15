@@ -24,6 +24,7 @@ import type { PostMessages } from "./post-messages.js";
 import type { ProfileMessages } from "./profile-messages.js";
 import type { PwaMessages } from "./pwa-messages.js";
 import type { ReleaseNotesMessages } from "./release-notes-messages.js";
+import type { RoleplayMessages } from "./roleplay-messages.js";
 import type { SearchMessages } from "./search-messages.js";
 import type { SecurityMessages } from "./security-messages.js";
 import type { ShellMessages } from "./shell-messages.js";
@@ -77,4 +78,5 @@ export type Messages = UiMessages &
   CompaniesMessages &
   WhatsNewMessages &
   ReleaseNotesMessages &
-  CalendarMessages;
+  CalendarMessages &
+  RoleplayMessages;
