@@ -159,6 +159,8 @@ export const postMessages: PostMessages = {
       GROUP_COMMENT: "Denunciar comentário do grupo",
       MESSAGE: "Denunciar mensagem",
       COMPANY: "Denunciar página empresarial",
+      DESABAFO_POST: "Denunciar desabafo",
+      DESABAFO_COMMENT: "Denunciar acolhida",
     },
     reason: "Motivo",
     reasons: {

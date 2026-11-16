@@ -21,6 +21,7 @@ export type DesabafosMessages = {
     reactLove: string;
     reactSupport: string;
     remove: string;
+    report: string;
   };
   desabafosComments: {
     empty: string;

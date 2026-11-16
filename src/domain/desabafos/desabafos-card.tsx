@@ -1,4 +1,4 @@
-import { HeartHandshake, MessageCircle, Trash2 } from "lucide-react";
+import { Flag, MessageCircle, Trash2 } from "lucide-react";
 
 import { cn } from "../../lib/utils.js";
 import { useMessages } from "../../messages/messages-context.js";
@@ -37,6 +37,7 @@ export function DesabafosCard({
   onRemove,
   onComment,
   onRemoveComment,
+  onReport,
 }: DesabafosCardProps) {
   const messages = useMessages().desabafosCard;
   const hora = HORA.format(new Date(post.createdAt));
@@ -97,16 +98,27 @@ export function DesabafosCard({
           );
         })}
 
-        <HeartHandshake className="ml-auto h-4 w-4 text-text-subtle" aria-hidden="true" />
-
         <button
           type="button"
           onClick={onToggleComments}
           aria-expanded={commentsOpen}
-          className="flex items-center gap-1 text-xs text-text-subtle transition hover:text-text-strong"
+          className="ml-auto flex items-center gap-1 text-xs text-text-subtle transition hover:text-text-strong"
         >
           <MessageCircle className="h-4 w-4" /> {messages.acolhidas(post.comments)}
         </button>
+
+        {/* Denunciar é gesto de quem vê, nunca do próprio autor do desabafo. */}
+        {!post.isMine && onReport && (
+          <button
+            type="button"
+            onClick={onReport}
+            className="flex items-center gap-1 text-xs text-text-subtle transition hover:text-text-strong"
+            title={messages.report}
+            aria-label={messages.report}
+          >
+            <Flag className="h-3.5 w-3.5" />
+          </button>
+        )}
       </div>
 
       {commentsOpen && (

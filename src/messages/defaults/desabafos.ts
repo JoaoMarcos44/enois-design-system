@@ -19,6 +19,7 @@ export const desabafosMessages: DesabafosMessages = {
     reactLove: "Reagir com carinho",
     reactSupport: "Reagir com apoio",
     remove: "Remover meu desabafo",
+    report: "Denunciar desabafo",
   },
   desabafosComments: {
     empty: "Ninguém acolheu ainda. Sua palavra pode ajudar.",

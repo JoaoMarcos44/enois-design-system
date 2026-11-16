@@ -112,8 +112,16 @@ describe("DesabafosCard", () => {
     expect(props.onRemove).toHaveBeenCalledTimes(1);
   });
 
-  it("o desabafo removido não expõe ninguém que apoiou", () => {
-    render({ post: { ...postBase, myReaction: "LOVE" } });
+  it("denunciar aparece para quem vê e some no próprio desabafo", () => {
+    const props = render({ onReport: vi.fn() });
+    act(() => botaoPorRotulo(messages.report)?.click());
+    expect(props.onReport).toHaveBeenCalledTimes(1);
+
+    render({ post: { ...postBase, isMine: true }, onReport: vi.fn() });
+    expect(botaoPorRotulo(messages.report)).toBeUndefined();
+  });
+
+  it("o desabafo removido não expõe ninguém que apoiou", () => {    render({ post: { ...postBase, myReaction: "LOVE" } });
     // A contagem é o teto do que se mostra: nenhum nome ou id de quem apoiou aparece.
     expect(host.textContent).not.toContain("apoiou");
   });

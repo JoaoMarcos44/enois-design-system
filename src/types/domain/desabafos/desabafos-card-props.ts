@@ -17,4 +17,6 @@ export type DesabafosCardProps = {
   onRemove: () => void;
   onComment: (input: DesabafosCommentInput) => Promise<void>;
   onRemoveComment: (commentId: string) => void;
+  /** Abre a denúncia; o card só oferece o gesto para quem NÃO é o autor do desabafo. */
+  onReport?: () => void;
 };
