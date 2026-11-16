@@ -9,6 +9,10 @@ export const postMessages: PostMessages = {
     placeholder: "Começar publicação",
     addMedia: "Adicionar foto ou vídeo",
   },
+  composerDraft: {
+    salvo: (hora) => `Rascunho salvo às ${hora}`,
+    descartar: "Descartar rascunho",
+  },
   composerMediaPicker: {
     add: "Adicionar imagem",
     remove: "Remover mídia",
