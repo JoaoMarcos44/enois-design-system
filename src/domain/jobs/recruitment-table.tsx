@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { ChevronDown, Loader2, Search } from "lucide-react";
 
 import { cn } from "../../lib/utils.js";
@@ -46,6 +48,14 @@ export function RecruitmentTable({
   const stageName = (stageId: string | null) =>
     stages.find((stage) => stage.id === stageId)?.name ?? null;
   const canMove = selected.size > 0 && !pending;
+  // O alvo do select é o mesmo para os três botões: o backend exige etapa para avançar e recusa
+  // movimento de quem já saiu; REJECT não usa a etapa (fromStageId = toStageId no movimento).
+  const [targetId, setTargetId] = useState("");
+
+  const move = (kind: RecruitmentBatchTarget["kind"]) => {
+    const stage = stages.find((stage) => stage.id === targetId) ?? null;
+    onBatchMove({ kind, stageId: kind === "REJECT" ? null : (stage?.id ?? null) });
+  };
 
   return (
     <section className="space-y-3" aria-label={messages.candidateColumn}>
@@ -97,18 +107,12 @@ export function RecruitmentTable({
 
           <Select
             aria-label={messages.moveTo}
-            defaultValue=""
+            value={targetId}
             className="h-9 w-auto max-w-56"
             disabled={pending}
-            onChange={(event) => {
-              if (event.target.value !== "") {
-                onBatchMove({ kind: "ADVANCE", stageId: event.target.value || null });
-              }
-            }}
+            onChange={(event) => setTargetId(event.target.value)}
           >
-            <option value="" disabled>
-              {messages.moveTargetPlaceholder}
-            </option>
+            <option value="">{messages.moveTargetPlaceholder}</option>
             {stages.map((stage) => (
               <option key={stage.id} value={stage.id}>
                 {stage.name}
@@ -119,8 +123,17 @@ export function RecruitmentTable({
           <Button
             variant="outline"
             size="sm"
-            disabled={!canMove}
-            onClick={() => onBatchMove({ kind: "RETURN", stageId: null })}
+            disabled={!canMove || !targetId}
+            onClick={() => move("ADVANCE")}
+          >
+            {messages.advance}
+          </Button>
+
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={!canMove || !targetId}
+            onClick={() => move("RETURN")}
           >
             {messages.returnTo}
           </Button>
@@ -129,7 +142,7 @@ export function RecruitmentTable({
             variant="destructive"
             size="sm"
             disabled={!canMove}
-            onClick={() => onBatchMove({ kind: "REJECT", stageId: null })}
+            onClick={() => move("REJECT")}
           >
             {messages.reject}
           </Button>
