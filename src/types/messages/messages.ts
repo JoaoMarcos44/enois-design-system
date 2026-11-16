@@ -12,6 +12,7 @@ import type { ConversationsMessages } from "./conversations-messages.js";
 import type { CosmeticsMessages } from "./cosmetics-messages.js";
 import type { DevelopersMessages } from "./developers-messages.js";
 import type { EditorMessages } from "./editor-messages.js";
+import type { DiarioMessages } from "./diario-messages.js";
 import type { EnquetesMessages } from "./enquetes-messages.js";
 import type { EventsMessages } from "./events-messages.js";
 import type { GamesMessages } from "./games-messages.js";
@@ -87,4 +88,5 @@ export type Messages = UiMessages &
   ColagemMessages &
   MuraisMessages &
   ColecoesMessages &
-  EnquetesMessages;
+  EnquetesMessages &
+  DiarioMessages;

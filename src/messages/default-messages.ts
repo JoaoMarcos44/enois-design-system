@@ -14,6 +14,7 @@ import { conversationsMessages } from "./defaults/conversations.js";
 import { cosmeticsMessages } from "./defaults/cosmetics.js";
 import { developersMessages } from "./defaults/developers.js";
 import { editorMessages } from "./defaults/editor.js";
+import { diarioMessages } from "./defaults/diario.js";
 import { enquetesMessages } from "./defaults/enquetes.js";
 import { eventsMessages } from "./defaults/events.js";
 import { gamesMessages } from "./defaults/games.js";
@@ -86,4 +87,5 @@ export const defaultMessages: Messages = {
   ...muraisMessages,
   ...colecoesMessages,
   ...enquetesMessages,
+  ...diarioMessages,
 };

@@ -318,6 +318,7 @@ export type ProfileMessages = {
     replies: string;
     reposts: string;
     media: string;
+    diario: string;
     /** Tooltip shown on the locked REPLIES tab for non-owners. */
     repliesLocked: string;
   };

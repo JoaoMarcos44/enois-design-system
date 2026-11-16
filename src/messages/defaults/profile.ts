@@ -348,6 +348,7 @@ export const profileMessages: ProfileMessages = {
     replies: "Respostas",
     reposts: "Reposts",
     media: "Mídia",
+    diario: "Diário",
     repliesLocked: "Respostas são visíveis apenas para o dono do perfil.",
   },
   profileReplyCard: {

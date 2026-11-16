@@ -5159,3 +5159,19 @@ html[data-batata] .profile-scope {
 .enquete-barra {
   width: var(--enquete-barra, 0%);
 }
+
+/* Linha vertical do diário do perfil: ligação entre os pontos de cada evento. */
+.diario-linha {
+  position: relative;
+}
+
+.diario-linha::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--border);
+  border-radius: 999px;
+}
