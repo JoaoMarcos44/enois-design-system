@@ -3,6 +3,7 @@ import type { CSSProperties, RefObject } from "react";
 
 import { ChevronLeft, ChevronRight, RefreshCw, X, ZoomIn, ZoomOut } from "lucide-react";
 
+import { useSpoilerPreference } from "../../media/spoiler-preference.js";
 import { useMessages } from "../../messages/messages-context.js";
 import type { ProfilePhotoViewerProps } from "../../types/domain/profile/profile-photo-viewer-props.js";
 import { Button } from "../../ui/button.js";
@@ -31,15 +32,17 @@ export function ProfilePhotoViewer({ photos, index, onIndexChange }: ProfilePhot
 
   const [escala, setEscala] = useState(ZOOM_MINIMO);
   const [pan, setPan] = useState({ x: 0, y: 0 });
-  const [revelada, setRevelada] = useState(false);
+  // Com "sempre revelar" ligado, a foto sensível já nasce aberta (a preferência vale aqui dentro).
+  const prefereRevelar = useSpoilerPreference();
+  const [revelada, setRevelada] = useState(prefereRevelar);
   const arrastando = useRef<{ px: number; py: number; ox: number; oy: number } | null>(null);
 
   // Trocar de foto (ou fechar) volta ao natural: cada foto começa inteira, e a sensível nasce velada.
   useEffect(() => {
     setEscala(ZOOM_MINIMO);
     setPan({ x: 0, y: 0 });
-    setRevelada(false);
-  }, [index]);
+    setRevelada(prefereRevelar);
+  }, [index, prefereRevelar]);
 
   if (!aberta || !foto) return null;
 

@@ -4,6 +4,7 @@ import { act } from "react";
 import { type Root, createRoot } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+import { SpoilerPreferenceContext } from "../../media/spoiler-preference.js";
 import { defaultMessages } from "../../messages/default-messages.js";
 import type { ColagemPhotoGridProps } from "../../types/domain/colagem/colagem-photo-grid-props.js";
 import type { ColagemPhotoSummary } from "../../types/domain/colagem/colagem-photo-summary.js";
@@ -53,6 +54,25 @@ describe("ColagemPhotoGrid", () => {
     act(() => root.render(<ColagemPhotoGrid {...props} />));
     return props;
   };
+
+  it("com a preferência de revelar sensível, a foto velada entra direto na grade", () => {
+    act(() =>
+      root.render(
+        <SpoilerPreferenceContext value={true}>
+          <ColagemPhotoGrid
+            photos={[foto({ mediaSpoiler: true })]}
+            state={{ kind: "ready" }}
+            onOpen={vi.fn()}
+            hasMore={false}
+            loadingMore={false}
+            onLoadMore={vi.fn()}
+          />
+        </SpoilerPreferenceContext>,
+      ),
+    );
+    expect(host.textContent).not.toContain(messages.revealPhoto);
+    expect(host.querySelector("img")?.className).not.toContain("blur-md");
+  });
 
   it("enquanto carrega, o estado de carga fala", () => {
     render({ state: { kind: "loading" } });

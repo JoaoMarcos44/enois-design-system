@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+import { useSpoilerPreference } from "../../media/spoiler-preference.js";
 import { useMessages } from "../../messages/messages-context.js";
 import type { ProfilePhotoCarouselProps } from "../../types/domain/profile/profile-photo-carousel-props.js";
 import { Button } from "../../ui/button.js";
@@ -24,6 +25,8 @@ export function ProfilePhotoCarousel({
   onLoadMore,
 }: ProfilePhotoCarouselProps) {
   const messages = useMessages().profileGallery;
+  // "Sempre revelar" tira o véu das miniaturas (e o visualizador nasce com a foto aberta).
+  const prefereRevelar = useSpoilerPreference();
   const [aberta, setAberta] = useState<number | null>(null);
   const tira = useRef<HTMLDivElement>(null);
 
@@ -72,10 +75,10 @@ export function ProfilePhotoCarousel({
                 loading="lazy"
                 draggable={false}
                 className={`h-full w-full bg-surface-1 object-cover ${
-                  foto.mediaSpoiler ? "scale-110 blur-md" : ""
+                  foto.mediaSpoiler && !prefereRevelar ? "scale-110 blur-md" : ""
                 }`}
               />
-              {foto.mediaSpoiler && (
+              {foto.mediaSpoiler && !prefereRevelar && (
                 <span className="absolute inset-x-0 bottom-0 bg-surface-card/85 px-1 py-0.5 text-center text-[10px] font-semibold text-text-strong">
                   {messages.revealPhoto}
                 </span>

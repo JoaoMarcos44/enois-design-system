@@ -1,6 +1,7 @@
 import { Loader2 } from "lucide-react";
 
 import { cn } from "../../lib/utils.js";
+import { useSpoilerPreference } from "../../media/spoiler-preference.js";
 import { useMessages } from "../../messages/messages-context.js";
 import type { ColagemGridState } from "../../types/domain/colagem/colagem-grid-state.js";
 import type { ColagemPhotoGridProps } from "../../types/domain/colagem/colagem-photo-grid-props.js";
@@ -68,6 +69,9 @@ function ColagemTile({
   onOpen: (id: string) => void;
 }) {
   const messages = useMessages().colagemGrid;
+  // Com "sempre revelar" ligado, a foto sensível entra direto, sem véu nem aviso.
+  const prefereRevelar = useSpoilerPreference();
+  const velada = photo.mediaSpoiler && !prefereRevelar;
 
   return (
     <button
@@ -83,13 +87,13 @@ function ColagemTile({
         src={photo.mediaUrl}
         alt={photo.description ?? messages.openPhoto}
         className={
-          photo.mediaSpoiler
+          velada
             ? "h-full w-full object-cover blur-md"
             : "h-full w-full object-cover transition group-hover:scale-[1.02]"
         }
         loading="lazy"
       />
-      {photo.mediaSpoiler && (
+      {velada && (
         <span className="absolute inset-0 flex items-center justify-center p-2 text-center text-xs font-medium text-white">
           {messages.revealPhoto}
         </span>
