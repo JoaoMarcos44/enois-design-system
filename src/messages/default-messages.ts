@@ -7,6 +7,7 @@ import { avatarMessages } from "./defaults/avatar.js";
 import { blogMessages } from "./defaults/blog.js";
 import { calendarMessages } from "./defaults/calendar.js";
 import { colagemMessages } from "./defaults/colagem.js";
+import { desabafosMessages } from "./defaults/desabafos.js";
 import { colecoesMessages } from "./defaults/colecoes.js";
 import { communitiesMessages } from "./defaults/communities.js";
 import { companiesMessages } from "./defaults/companies.js";
@@ -88,4 +89,5 @@ export const defaultMessages: Messages = {
   ...colecoesMessages,
   ...enquetesMessages,
   ...diarioMessages,
+  ...desabafosMessages,
 };
