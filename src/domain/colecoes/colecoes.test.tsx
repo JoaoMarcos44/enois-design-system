@@ -7,7 +7,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { defaultMessages } from "../../messages/default-messages.js";
 import type { ColecaoFormularioProps } from "../../types/domain/colecoes/colecao-formulario-props.js";
 import type { ColecaoPostCartaoProps } from "../../types/domain/colecoes/colecao-post-cartao-props.js";
-import type { ColecaoPostInfo } from "../../types/domain/colecoes/colecao-post-cartao-props.js";
+import type { ColecaoPostInfo } from "../../types/domain/colecoes/colecao-post-info.js";
 import type { ColecaoQuadroProps } from "../../types/domain/colecoes/colecao-quadro-props.js";
 import type { ColecaoResumo } from "../../types/domain/colecoes/colecao-resumo.js";
 import type { ColecoesListaProps } from "../../types/domain/colecoes/colecoes-lista-props.js";

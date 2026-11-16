@@ -112,7 +112,9 @@ describe("DesabafosComments", () => {
     const minha: DesabafosCommentView = { ...acolhidaAlheia, id: "desabafo_c_2", isMine: true };
     render({ comments: [acolhidaAlheia, minha], onRemoveComment: remover });
 
-    const gestos = [...host.querySelectorAll('button[aria-label="' + messages.remove + '"]')];
+    const gestos = [
+      ...host.querySelectorAll<HTMLButtonElement>('button[aria-label="' + messages.remove + '"]'),
+    ];
     expect(gestos).toHaveLength(1);
     act(() => gestos[0]?.click());
     expect(remover).toHaveBeenCalledWith("desabafo_c_2");

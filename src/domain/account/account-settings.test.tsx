@@ -106,7 +106,7 @@ describe("AccountSettings: what left the account menu", () => {
 
     expect(container.textContent).toContain("Revelar mídia sensível");
     expect(container.textContent).toContain("Mostra sem o véu as fotos marcadas como sensíveis");
-    const interruptor = container.querySelector("button[role=switch]");
+    const interruptor = container.querySelector<HTMLButtonElement>("button[role=switch]");
     expect(interruptor).toBeTruthy();
     expect(interruptor!.getAttribute("aria-checked")).toBe("false");
     act(() => interruptor!.click());
