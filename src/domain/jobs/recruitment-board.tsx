@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { GripVertical } from "lucide-react";
 
 import { cn } from "../../lib/utils.js";
@@ -34,9 +36,13 @@ export function RecruitmentBoard({
   const messages = useMessages().recruitment;
   const selected = new Set(selectedIds);
   const canMove = selected.size > 0 && !pending;
+  // O alvo do select é o mesmo para os três botões: o backend exige etapa para avançar e recusa
+  // movimento de quem já saiu; REJECT não usa a etapa (fromStageId = toStageId no movimento).
+  const [targetId, setTargetId] = useState("");
 
-  const move = (kind: RecruitmentBatchTarget["kind"], stageId: string | null) => {
-    onBatchMove({ kind, stageId });
+  const move = (kind: RecruitmentBatchTarget["kind"]) => {
+    const stage = stages.find((stage) => stage.id === targetId) ?? null;
+    onBatchMove({ kind, stageId: kind === "REJECT" ? null : (stage?.id ?? null) });
   };
 
   return (
@@ -69,17 +75,12 @@ export function RecruitmentBoard({
 
           <Select
             aria-label={messages.moveTo}
-            defaultValue=""
+            value={targetId}
             className="h-9 w-auto max-w-56"
             disabled={pending}
-            onChange={(event) => {
-              const stageId = event.target.value || null;
-              if (event.target.value !== "") move("ADVANCE", stageId);
-            }}
+            onChange={(event) => setTargetId(event.target.value)}
           >
-            <option value="" disabled>
-              {messages.moveTargetPlaceholder}
-            </option>
+            <option value="">{messages.moveTargetPlaceholder}</option>
             {stages.map((stage) => (
               <option key={stage.id} value={stage.id}>
                 {stage.name}
@@ -90,8 +91,8 @@ export function RecruitmentBoard({
           <Button
             variant="outline"
             size="sm"
-            disabled={!canMove || stages.length === 0}
-            onClick={() => move("ADVANCE", null)}
+            disabled={!canMove || !targetId}
+            onClick={() => move("ADVANCE")}
           >
             {messages.advance}
           </Button>
@@ -99,8 +100,8 @@ export function RecruitmentBoard({
           <Button
             variant="outline"
             size="sm"
-            disabled={!canMove}
-            onClick={() => move("RETURN", null)}
+            disabled={!canMove || !targetId}
+            onClick={() => move("RETURN")}
           >
             {messages.returnTo}
           </Button>
@@ -109,7 +110,7 @@ export function RecruitmentBoard({
             variant="destructive"
             size="sm"
             disabled={!canMove}
-            onClick={() => move("REJECT", null)}
+            onClick={() => move("REJECT")}
           >
             {messages.reject}
           </Button>

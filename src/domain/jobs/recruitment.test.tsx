@@ -37,6 +37,16 @@ const button = (label: string) =>
     (element) => element.textContent?.trim() === label,
   );
 
+const select = (label: string) =>
+  [...document.body.querySelectorAll<HTMLSelectElement>("select")].find(
+    (element) => element.getAttribute("aria-label") === label,
+  );
+
+const choose = (element: HTMLSelectElement, value: string) => {
+  element.value = value;
+  element.dispatchEvent(new Event("change", { bubbles: true }));
+};
+
 const score = {
   total: 78,
   available: true,
@@ -170,7 +180,7 @@ describe("board de recrutamento (kanban)", () => {
     expect(onToggleSelected).toHaveBeenCalledWith("app_1");
   });
 
-  it("mover em lote passa o alvo escolhido", () => {
+  it("mover em lote exige a etapa escolhida e passa o alvo", () => {
     const onBatchMove = vi.fn();
     render(
       <RecruitmentBoard
@@ -179,11 +189,21 @@ describe("board de recrutamento (kanban)", () => {
     );
 
     expect(text()).toContain(messages.selectedCount(2));
+    // O backend recusa avançar sem etapa de destino: o botão só liga depois da escolha.
     const moveButton = button(messages.advance);
     expect(moveButton).toBeDefined();
-    expect(moveButton!.disabled).toBe(false);
-    act(() => moveButton!.click());
-    expect(onBatchMove).toHaveBeenCalledWith({ kind: "ADVANCE", stageId: null });
+    expect(moveButton!.disabled).toBe(true);
+
+    const moveSelect = select(messages.moveTo);
+    expect(moveSelect).toBeDefined();
+    act(() => choose(moveSelect!, "stage_2"));
+
+    expect(button(messages.advance)!.disabled).toBe(false);
+    act(() => button(messages.advance)!.click());
+    expect(onBatchMove).toHaveBeenCalledWith({ kind: "ADVANCE", stageId: "stage_2" });
+
+    act(() => button(messages.returnTo)!.click());
+    expect(onBatchMove).toHaveBeenCalledWith({ kind: "RETURN", stageId: "stage_2" });
   });
 
   it("sem seleção não há movimento de lote", () => {
@@ -278,14 +298,21 @@ describe("tabela de recrutamento (paginada)", () => {
     expect(text()).toContain(messages.loadError);
   });
 
-  it("mover em lote pela tabela passa o alvo da etapa escolhida", () => {
+  it("mover em lote pela tabela segue o mesmo alvo da etapa escolhida", () => {
     const onBatchMove = vi.fn();
     render(<RecruitmentTable {...tableProps({ selectedIds: ["app_1"], onBatchMove })} />);
 
     expect(text()).toContain(messages.selectedCount(1));
     const returnButton = button(messages.returnTo);
     expect(returnButton).toBeDefined();
-    act(() => returnButton!.click());
-    expect(onBatchMove).toHaveBeenCalledWith({ kind: "RETURN", stageId: null });
+    expect(returnButton!.disabled).toBe(true);
+
+    const moveSelect = select(messages.moveTo);
+    expect(moveSelect).toBeDefined();
+    act(() => choose(moveSelect!, "stage_1"));
+
+    expect(button(messages.returnTo)!.disabled).toBe(false);
+    act(() => button(messages.returnTo)!.click());
+    expect(onBatchMove).toHaveBeenCalledWith({ kind: "RETURN", stageId: "stage_1" });
   });
 });
