@@ -5154,3 +5154,8 @@ html[data-batata] .profile-scope {
     z-index: 10;
   }
 }
+
+/* Barra de resultado da enquete: a largura é o percentual de votos da alternativa. */
+.enquete-barra {
+  width: var(--enquete-barra, 0%);
+}

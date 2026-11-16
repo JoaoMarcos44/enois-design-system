@@ -4,14 +4,15 @@ import type { AuthMessages } from "./auth-messages.js";
 import type { AvatarMessages } from "./avatar-messages.js";
 import type { BlogMessages } from "./blog-messages.js";
 import type { CalendarMessages } from "./calendar-messages.js";
-import type { ColecoesMessages } from "./colecoes-messages.js";
 import type { ColagemMessages } from "./colagem-messages.js";
+import type { ColecoesMessages } from "./colecoes-messages.js";
 import type { CommunitiesMessages } from "./communities-messages.js";
 import type { CompaniesMessages } from "./companies-messages.js";
 import type { ConversationsMessages } from "./conversations-messages.js";
 import type { CosmeticsMessages } from "./cosmetics-messages.js";
 import type { DevelopersMessages } from "./developers-messages.js";
 import type { EditorMessages } from "./editor-messages.js";
+import type { EnquetesMessages } from "./enquetes-messages.js";
 import type { EventsMessages } from "./events-messages.js";
 import type { GamesMessages } from "./games-messages.js";
 import type { JobsMessages } from "./jobs-messages.js";
@@ -85,4 +86,5 @@ export type Messages = UiMessages &
   RoleplayMessages &
   ColagemMessages &
   MuraisMessages &
-  ColecoesMessages;
+  ColecoesMessages &
+  EnquetesMessages;
