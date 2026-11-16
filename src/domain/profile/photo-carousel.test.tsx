@@ -39,9 +39,10 @@ describe("ProfilePhotoCarousel", () => {
   const miniaturas = () =>
     host.querySelectorAll<HTMLButtonElement>(`button[aria-label="${messages.openPhoto}"]`);
 
-  const clicar = async (botao: HTMLElement | null | undefined) => {
+  const clicar = async (botao: Element | null | undefined) => {
     if (!botao) throw new Error("botão não renderizado");
-    await act(async () => botao.click());
+    const alvo = botao as HTMLElement;
+    await act(async () => alvo.click());
   };
 
   beforeEach(() => {

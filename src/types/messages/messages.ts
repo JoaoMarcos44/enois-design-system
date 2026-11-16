@@ -17,6 +17,7 @@ import type { JobsMessages } from "./jobs-messages.js";
 import type { LegalMessages } from "./legal-messages.js";
 import type { MarketplaceMessages } from "./marketplace-messages.js";
 import type { ModerationMessages } from "./moderation-messages.js";
+import type { MuraisMessages } from "./murais-messages.js";
 import type { NetworkMessages } from "./network-messages.js";
 import type { NotificationsMessages } from "./notifications-messages.js";
 import type { OnboardingMessages } from "./onboarding-messages.js";
@@ -81,4 +82,5 @@ export type Messages = UiMessages &
   ReleaseNotesMessages &
   CalendarMessages &
   RoleplayMessages &
-  ColagemMessages;
+  ColagemMessages &
+  MuraisMessages;
