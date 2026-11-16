@@ -20,6 +20,7 @@ import { legalMessages } from "./defaults/legal.js";
 import { marketplaceMessages } from "./defaults/marketplace.js";
 import { moderationMessages } from "./defaults/moderation.js";
 import { muraisMessages } from "./defaults/murais.js";
+import { colecoesMessages } from "./defaults/colecoes.js";
 import { networkMessages } from "./defaults/network.js";
 import { notificationsMessages } from "./defaults/notifications.js";
 import { onboardingMessages } from "./defaults/onboarding.js";
@@ -82,4 +83,5 @@ export const defaultMessages: Messages = {
   ...roleplayMessages,
   ...colagemMessages,
   ...muraisMessages,
+  ...colecoesMessages,
 };

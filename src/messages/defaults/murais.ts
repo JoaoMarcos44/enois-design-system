@@ -34,6 +34,6 @@ export const muraisMessages: MuraisMessages = {
     coladoPor: (name) => `colado por ${name}`,
     tirar: "Tirar do mural",
     tirarConfirmTitle: "Tirar esta publicação do mural?",
-    tirarConfirmBody: "A publicação continua no feed — ela só sai deste quadro.",
+    tirarConfirmBody: "A publicação continua no feed. Ela só sai deste quadro.",
   },
 };

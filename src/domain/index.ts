@@ -14,6 +14,7 @@ export * from "./wellbeing/index.js";
 export * from "./post/index.js";
 export * from "./colagem/index.js";
 export * from "./murais/index.js";
+export * from "./colecoes/index.js";
 export * from "./games/index.js";
 export * from "./appearance/index.js";
 export * from "./wallet/index.js";
