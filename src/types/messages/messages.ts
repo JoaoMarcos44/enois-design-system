@@ -4,19 +4,26 @@ import type { AuthMessages } from "./auth-messages.js";
 import type { AvatarMessages } from "./avatar-messages.js";
 import type { BlogMessages } from "./blog-messages.js";
 import type { CalendarMessages } from "./calendar-messages.js";
+import type { ColagemMessages } from "./colagem-messages.js";
+import type { ColecoesMessages } from "./colecoes-messages.js";
 import type { CommunitiesMessages } from "./communities-messages.js";
 import type { CompaniesMessages } from "./companies-messages.js";
 import type { ConversationsMessages } from "./conversations-messages.js";
 import type { CosmeticsMessages } from "./cosmetics-messages.js";
+import type { DesabafosMessages } from "./desabafos-messages.js";
 import type { DevelopersMessages } from "./developers-messages.js";
+import type { DiarioMessages } from "./diario-messages.js";
 import type { EditorMessages } from "./editor-messages.js";
+import type { EnquetesMessages } from "./enquetes-messages.js";
 import type { EventsMessages } from "./events-messages.js";
 import type { GamesMessages } from "./games-messages.js";
 import type { JobsMessages } from "./jobs-messages.js";
 import type { LegalMessages } from "./legal-messages.js";
 import type { MarketplaceMessages } from "./marketplace-messages.js";
 import type { ModerationMessages } from "./moderation-messages.js";
+import type { MuraisMessages } from "./murais-messages.js";
 import type { NetworkMessages } from "./network-messages.js";
+import type { NoticesMessages } from "./notices-messages.js";
 import type { NotificationsMessages } from "./notifications-messages.js";
 import type { OnboardingMessages } from "./onboarding-messages.js";
 import type { PatternsMessages } from "./patterns-messages.js";
@@ -52,6 +59,7 @@ export type Messages = UiMessages &
   AccountMessages &
   NotificationsMessages &
   NetworkMessages &
+  NoticesMessages &
   SearchMessages &
   SupportUsMessages &
   PwaMessages &
@@ -79,4 +87,10 @@ export type Messages = UiMessages &
   WhatsNewMessages &
   ReleaseNotesMessages &
   CalendarMessages &
-  RoleplayMessages;
+  RoleplayMessages &
+  ColagemMessages &
+  MuraisMessages &
+  ColecoesMessages &
+  EnquetesMessages &
+  DiarioMessages &
+  DesabafosMessages;
