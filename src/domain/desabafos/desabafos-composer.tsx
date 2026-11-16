@@ -57,7 +57,11 @@ export function DesabafosComposer({ onPublish }: DesabafosComposerProps) {
         title={vazio ? messages.needText : undefined}
         className="gap-2 rounded-full"
       >
-        {enviando ? <Loader2 className="h-4 w-4 animate-spin" /> : <HeartHandshake className="h-4 w-4" />}
+        {enviando ? (
+          <Loader2 className="h-4 w-4 animate-spin" />
+        ) : (
+          <HeartHandshake className="h-4 w-4" />
+        )}
         {enviando ? messages.publishing : messages.publish}
       </Button>
     </section>

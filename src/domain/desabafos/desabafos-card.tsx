@@ -6,6 +6,7 @@ import type { DesabafosCardProps } from "../../types/domain/desabafos/desabafos-
 import type { DesabafosReactionOffered } from "../../types/domain/desabafos/desabafos-reaction-offered.js";
 import { UserAvatar } from "../avatar/user-avatar.js";
 import { StyledName } from "../name/styled-name.js";
+
 import { DesabafosComments } from "./desabafos-comments.js";
 
 /** O par que a interface oferece: as reações de apoio. O tipo extra vem do mapa de emoji. */
@@ -45,11 +46,7 @@ export function DesabafosCard({
   return (
     <article className="space-y-3 rounded-2xl border border-border p-4">
       <div className="flex items-center gap-2">
-        <UserAvatar
-          src={post.authorAvatar}
-          alt={post.authorName}
-          className="h-9 w-9 shrink-0"
-        />
+        <UserAvatar src={post.authorAvatar} alt={post.authorName} className="h-9 w-9 shrink-0" />
 
         <div className="min-w-0 flex-1">
           <StyledName
@@ -57,6 +54,7 @@ export function DesabafosCard({
             style={post.authorStyle}
             className="text-sm font-medium"
           />
+
           <p className="text-xs text-text-subtle">{hora}</p>
         </div>
 
@@ -93,6 +91,7 @@ export function DesabafosCard({
               )}
             >
               <span aria-hidden="true">{emoji}</span>
+
               <span>{post.reactionSummary[tipo] ?? 0}</span>
             </button>
           );

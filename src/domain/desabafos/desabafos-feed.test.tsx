@@ -78,7 +78,11 @@ describe("DesabafosFeed", () => {
 
     const props = render({ hasMore: true });
     expect(host.textContent).toContain(messages.loadMore);
-    act(() => [...host.querySelectorAll("button")].find((b) => b.textContent?.includes(messages.loadMore))?.click());
+    act(() =>
+      [...host.querySelectorAll("button")]
+        .find((b) => b.textContent?.includes(messages.loadMore))
+        ?.click(),
+    );
     expect(props.onLoadMore).toHaveBeenCalledTimes(1);
   });
 });

@@ -3,8 +3,8 @@ import type { ReactNode } from "react";
 import { Loader2 } from "lucide-react";
 
 import { useMessages } from "../../messages/messages-context.js";
-import type { DesabafosFeedState } from "../../types/domain/desabafos/desabafos-feed-state.js";
 import type { DesabafoPostView } from "../../types/domain/desabafos/desabafo-post-view.js";
+import type { DesabafosFeedState } from "../../types/domain/desabafos/desabafos-feed-state.js";
 import { Button } from "../../ui/button.js";
 
 /**

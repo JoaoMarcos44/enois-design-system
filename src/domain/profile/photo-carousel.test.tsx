@@ -5,8 +5,8 @@ import { type Root, createRoot } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { defaultMessages } from "../../messages/default-messages.js";
-import type { ProfilePhoto } from "../../types/domain/profile/profile-photo.js";
 import type { ProfilePhotoCarouselProps } from "../../types/domain/profile/profile-photo-carousel-props.js";
+import type { ProfilePhoto } from "../../types/domain/profile/profile-photo.js";
 
 import { ProfilePhotoCarousel } from "./photo-carousel.js";
 
@@ -92,8 +92,10 @@ describe("ProfilePhotoCarousel", () => {
     render();
 
     await clicar(miniaturas()[0]);
-    const anterior = () => dialogo().querySelector<HTMLButtonElement>(`button[aria-label="${messages.prev}"]`);
-    const seguinte = () => dialogo().querySelector<HTMLButtonElement>(`button[aria-label="${messages.next}"]`);
+    const anterior = () =>
+      dialogo().querySelector<HTMLButtonElement>(`button[aria-label="${messages.prev}"]`);
+    const seguinte = () =>
+      dialogo().querySelector<HTMLButtonElement>(`button[aria-label="${messages.next}"]`);
 
     expect(anterior()?.disabled).toBe(true);
 
@@ -110,9 +112,12 @@ describe("ProfilePhotoCarousel", () => {
 
     await clicar(miniaturas()[0]);
 
-    const reset = () => dialogo().querySelector<HTMLButtonElement>(`button[aria-label="${messages.resetZoom}"]`);
-    const ampliar = () => dialogo().querySelector<HTMLButtonElement>(`button[aria-label="${messages.zoomIn}"]`);
-    const reduzir = () => dialogo().querySelector<HTMLButtonElement>(`button[aria-label="${messages.zoomOut}"]`);
+    const reset = () =>
+      dialogo().querySelector<HTMLButtonElement>(`button[aria-label="${messages.resetZoom}"]`);
+    const ampliar = () =>
+      dialogo().querySelector<HTMLButtonElement>(`button[aria-label="${messages.zoomIn}"]`);
+    const reduzir = () =>
+      dialogo().querySelector<HTMLButtonElement>(`button[aria-label="${messages.zoomOut}"]`);
 
     // No tamanho natural não há o que resetar; reduzir não tem para onde ir.
     expect(reset()).toBeNull();
@@ -140,7 +145,8 @@ describe("ProfilePhotoCarousel", () => {
     const fotoAberta = dialogo().querySelector("img:not([alt=''])");
     if (!fotoAberta) throw new Error("foto aberta não renderizada");
 
-    const reset = () => dialogo().querySelector<HTMLButtonElement>(`button[aria-label="${messages.resetZoom}"]`);
+    const reset = () =>
+      dialogo().querySelector<HTMLButtonElement>(`button[aria-label="${messages.resetZoom}"]`);
     await act(async () => fotoAberta.dispatchEvent(new MouseEvent("dblclick", { bubbles: true })));
     expect(reset()).not.toBeNull();
 
@@ -152,10 +158,14 @@ describe("ProfilePhotoCarousel", () => {
     render();
 
     await clicar(miniaturas()[0]);
-    await clicar(dialogo().querySelector<HTMLButtonElement>(`button[aria-label="${messages.zoomIn}"]`));
+    await clicar(
+      dialogo().querySelector<HTMLButtonElement>(`button[aria-label="${messages.zoomIn}"]`),
+    );
     expect(dialogo().querySelector(`button[aria-label="${messages.resetZoom}"]`)).not.toBeNull();
 
-    await clicar(dialogo().querySelector<HTMLButtonElement>(`button[aria-label="${messages.next}"]`));
+    await clicar(
+      dialogo().querySelector<HTMLButtonElement>(`button[aria-label="${messages.next}"]`),
+    );
     expect(dialogo().querySelector(`button[aria-label="${messages.resetZoom}"]`)).toBeNull();
     expect(tela().textContent).toContain(messages.counter(2, 3));
   });
@@ -181,7 +191,9 @@ describe("ProfilePhotoCarousel", () => {
     await clicar(miniaturas()[0]);
     expect(tela().textContent).toContain(messages.counter(1, 3));
 
-    await clicar(dialogo().querySelector(`button[aria-label="${defaultMessages.imageLightbox.close}"]`));
+    await clicar(
+      dialogo().querySelector(`button[aria-label="${defaultMessages.imageLightbox.close}"]`),
+    );
     expect(tela().textContent).not.toContain(messages.counter(1, 3));
   });
 

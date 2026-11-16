@@ -90,6 +90,7 @@ export function DesabafosComments({
                   </button>
                 )}
               </div>
+
               <p className="text-sm text-text-strong">{comment.content}</p>
             </div>
           </li>
@@ -104,8 +105,10 @@ export function DesabafosComments({
           aria-label={messages.placeholder}
           rows={2}
         />
+
         <div className="flex items-center justify-between gap-2">
           <CharCounter length={texto.length} max={MAX_COMMENT} />
+
           <Button
             size="sm"
             onClick={() => void acolher()}

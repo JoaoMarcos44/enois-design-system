@@ -121,7 +121,8 @@ describe("DesabafosCard", () => {
     expect(botaoPorRotulo(messages.report)).toBeUndefined();
   });
 
-  it("o desabafo removido não expõe ninguém que apoiou", () => {    render({ post: { ...postBase, myReaction: "LOVE" } });
+  it("o desabafo removido não expõe ninguém que apoiou", () => {
+    render({ post: { ...postBase, myReaction: "LOVE" } });
     // A contagem é o teto do que se mostra: nenhum nome ou id de quem apoiou aparece.
     expect(host.textContent).not.toContain("apoiou");
   });
