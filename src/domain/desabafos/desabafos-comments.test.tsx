@@ -15,9 +15,6 @@ const messages = defaultMessages.desabafosComments;
 
 const acolhidaAlheia: DesabafosCommentView = {
   id: "desabafo_c_1",
-  authorName: "Bia",
-  authorAvatar: null,
-  authorStyle: null,
   content: "Estou aqui com você",
   isMine: false,
 };
