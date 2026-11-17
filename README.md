@@ -133,6 +133,9 @@ footer, without hiding loaded comments. Desktop aligns the error with the field
 and keeps the icon beside the field and the tools below it. Fixed submit
 copy comes from `postComments.submit` and `postComments.sending` messages.
 
+Unmounting stops an active recording and releases its tracks without adding audio.
+Streams received after unmount are released without creating a recorder.
+
 `MediaGrid` preserves attachment order in lists containing audio. Each audio
 attachment gets its own player without autoplay; other attachments reuse the
 existing image or video view individually. Image-only lists retain their grid.
