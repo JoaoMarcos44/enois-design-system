@@ -17,6 +17,7 @@ export const conversationsMessages: ConversationsMessages = {
     react: "Reagir",
     report: "Denunciar mensagem",
     reply: "Responder",
+    goToOriginal: "Ir para mensagem original",
   },
   e2eSetupBanner: {
     prompt: "Proteja suas mensagens com criptografia ponta a ponta.",
