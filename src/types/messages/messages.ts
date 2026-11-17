@@ -9,6 +9,7 @@ import type { ColagemMessages } from "./colagem-messages.js";
 import type { ColecoesMessages } from "./colecoes-messages.js";
 import type { CommunitiesMessages } from "./communities-messages.js";
 import type { CompaniesMessages } from "./companies-messages.js";
+import type { ConfessionarioMessages } from "./confessionario-messages.js";
 import type { ConversationsMessages } from "./conversations-messages.js";
 import type { CosmeticsMessages } from "./cosmetics-messages.js";
 import type { DesabafosMessages } from "./desabafos-messages.js";
@@ -95,4 +96,5 @@ export type Messages = UiMessages &
   ColecoesMessages &
   EnquetesMessages &
   DiarioMessages &
-  DesabafosMessages;
+  DesabafosMessages &
+  ConfessionarioMessages;
