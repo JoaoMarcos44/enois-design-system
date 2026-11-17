@@ -4,6 +4,7 @@ import {
   Fragment,
   useEffect,
   useId,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -146,23 +147,37 @@ export function PostComments<C extends PostCommentNode>({
     }
   };
 
-  const byId = new Map<string, C>(comments.map((comment) => [comment.id, comment]));
-  // Resolve a raiz de cada comentario subindo pelos pais ja carregados. Assim uma resposta a uma
-  // resposta continua aparecendo sob o mesmo comentario-raiz — antes ela nao era renderizada
-  // (nao era raiz nem resposta direta da raiz) e parecia que "nao renderizava".
-  const rootIdByComment = new Map<string, string>();
-  for (const comment of comments) {
-    let currentId = comment.id;
-    let parentId = comment.parentCommentId;
-    const guard = new Set<string>();
-    while (parentId && byId.has(parentId) && !guard.has(currentId)) {
-      guard.add(currentId);
-      currentId = parentId;
-      parentId = byId.get(parentId)?.parentCommentId ?? null;
+  const { byId, roots, repliesByRoot } = useMemo(() => {
+    const byId = new Map<string, C>(comments.map((comment) => [comment.id, comment]));
+    // Resolve a raiz de cada comentario subindo pelos pais ja carregados. Assim uma resposta a uma
+    // resposta continua aparecendo sob o mesmo comentario-raiz — antes ela nao era renderizada
+    // (nao era raiz nem resposta direta da raiz) e parecia que "nao renderizava".
+    const rootIdByComment = new Map<string, string>();
+    for (const comment of comments) {
+      let currentId = comment.id;
+      let parentId = comment.parentCommentId;
+      const guard = new Set<string>();
+      while (parentId && byId.has(parentId) && !guard.has(currentId)) {
+        guard.add(currentId);
+        currentId = parentId;
+        parentId = byId.get(parentId)?.parentCommentId ?? null;
+      }
+      rootIdByComment.set(comment.id, currentId);
     }
-    rootIdByComment.set(comment.id, currentId);
-  }
-  const roots = comments.filter((comment) => rootIdByComment.get(comment.id) === comment.id);
+    const roots: C[] = [];
+    const repliesByRoot = new Map<string, C[]>();
+    for (const comment of comments) {
+      const rootId = rootIdByComment.get(comment.id);
+      if (rootId === comment.id) {
+        roots.push(comment);
+      } else if (rootId !== undefined) {
+        const replies = repliesByRoot.get(rootId) ?? [];
+        replies.push(comment);
+        repliesByRoot.set(rootId, replies);
+      }
+    }
+    return { byId, roots, repliesByRoot };
+  }, [comments]);
   const replyToName = replyToId ? byId.get(replyToId)?.authorName : undefined;
   // The reply opens in the thread when its comment is loaded; otherwise it stays on top.
   const inlineReply = replyToId !== null && byId.has(replyToId);
@@ -444,9 +459,7 @@ export function PostComments<C extends PostCommentNode>({
         {!loading &&
           error !== "load" &&
           roots.map((comment) => {
-            const replies = comments.filter(
-              (c) => c.id !== comment.id && rootIdByComment.get(c.id) === comment.id,
-            );
+            const replies = repliesByRoot.get(comment.id) ?? [];
             return (
               <div key={comment.id}>
                 {renderComment(comment)}
