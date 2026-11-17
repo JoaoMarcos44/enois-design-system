@@ -196,4 +196,13 @@ describe("PostComments composer", () => {
     expect(container.textContent).toContain("Não foi possível carregar os comentários.");
     expect(container.textContent).toContain("Tentar de novo");
   });
+
+  it("focuses a contenteditable textbox when opening a reply", () => {
+    field.mockReturnValueOnce(<div role="textbox" contentEditable="plaintext-only" />);
+    render(vi.fn(), { replyToId: "c2" });
+
+    const textbox = container.querySelector('[role="textbox"]');
+    expect(textbox).not.toBeNull();
+    expect(document.activeElement).toBe(textbox);
+  });
 });

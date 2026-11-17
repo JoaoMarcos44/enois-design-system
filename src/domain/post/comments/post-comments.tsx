@@ -133,7 +133,7 @@ export function PostComments<C extends PostCommentNode>({
   useEffect(() => {
     if (!replyToId) return;
     const form = formRef.current;
-    form?.querySelector("textarea")?.focus({ preventScroll: true });
+    form?.querySelector<HTMLElement>('textarea, [role="textbox"]')?.focus({ preventScroll: true });
     form?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }, [replyToId]);
 
