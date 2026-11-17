@@ -8,7 +8,7 @@ export const confessionarioMessages: ConfessionarioMessages = {
     loadMore: "Ver mais histórias",
   },
   confessionarioComposer: {
-    hint: "Ninguém fica sabendo quem contou — e o que você escrever aqui fica só no Confessionário, fora do feed principal.",
+    hint: "Ninguém fica sabendo quem contou. E o que você escrever aqui fica só no Confessionário, fora do feed principal.",
     placeholder: "Que história você nunca contou?",
     publish: "Contar",
     publishing: "Enviando…",
