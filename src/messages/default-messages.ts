@@ -11,6 +11,7 @@ import { colagemMessages } from "./defaults/colagem.js";
 import { colecoesMessages } from "./defaults/colecoes.js";
 import { communitiesMessages } from "./defaults/communities.js";
 import { companiesMessages } from "./defaults/companies.js";
+import { confessionarioMessages } from "./defaults/confessionario.js";
 import { conversationsMessages } from "./defaults/conversations.js";
 import { cosmeticsMessages } from "./defaults/cosmetics.js";
 import { desabafosMessages } from "./defaults/desabafos.js";
@@ -94,4 +95,5 @@ export const defaultMessages: Messages = {
   ...enquetesMessages,
   ...diarioMessages,
   ...desabafosMessages,
+  ...confessionarioMessages,
 };
