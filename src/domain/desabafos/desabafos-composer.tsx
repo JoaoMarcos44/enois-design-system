@@ -9,7 +9,7 @@ import { CharCounter } from "../../ui/char-counter.js";
 import { Textarea } from "../../ui/textarea.js";
 
 /** O teto do desabafo no backend (DesabafosService.MAX_CONTENT); contar aqui evita o 400. */
-const MAX_CONTENT = 3000;
+const MAX_CONTENT = 5000;
 
 /**
  * O compositor dos Desabafos: só texto, sem mídia e sem enquete — o que se pede aqui é palavra.

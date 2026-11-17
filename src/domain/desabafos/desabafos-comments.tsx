@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Loader2, Trash2 } from "lucide-react";
+import { Loader2, Trash2, UserRound } from "lucide-react";
 
 import { useMessages } from "../../messages/messages-context.js";
 import type { DesabafosCommentInput } from "../../types/domain/desabafos/desabafos-comment-input.js";
@@ -9,15 +9,14 @@ import type { DesabafosCommentsState } from "../../types/domain/desabafos/desaba
 import { Button } from "../../ui/button.js";
 import { CharCounter } from "../../ui/char-counter.js";
 import { Textarea } from "../../ui/textarea.js";
-import { UserAvatar } from "../avatar/user-avatar.js";
-import { StyledName } from "../name/styled-name.js";
 
 /** O teto da acolhida no backend (DesabafosService.MAX_COMMENT); contar aqui evita o 400. */
 const MAX_COMMENT = 800;
 
 /**
  * As acolhidas do desabafo aberto: lista plana de palavras de apoio, sem resposta a resposta —
- * toda acolhida responde o desabafo direto. Remover é gesto do próprio autor.
+ * toda acolhida responde o desabafo direto, e TODAS são anônimas (a view nem recebe autor).
+ * Remover é gesto do próprio autor, reconhecido pelo `isMine` que o servidor calculou.
  */
 export function DesabafosComments({
   comments,
@@ -65,19 +64,16 @@ export function DesabafosComments({
       <ul className="space-y-3">
         {comments.map((comment) => (
           <li key={comment.id} className="flex gap-2">
-            <UserAvatar
-              src={comment.authorAvatar}
-              alt={comment.authorName}
-              className="h-8 w-8 shrink-0"
-            />
+            <span
+              aria-hidden
+              className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-surface-2 text-text-subtle"
+            >
+              <UserRound className="h-3.5 w-3.5" />
+            </span>
 
             <div className="min-w-0 flex-1 space-y-1">
               <div className="flex items-center gap-2">
-                <StyledName
-                  name={comment.authorName ?? ""}
-                  style={comment.authorStyle}
-                  className="text-xs font-medium"
-                />
+                <p className="text-xs font-medium">{messages.anonymous}</p>
                 {comment.isMine && (
                   <button
                     type="button"
