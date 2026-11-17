@@ -85,6 +85,13 @@ preserving its existing single-skill frontend callbacks. Projects accept pasted
 lists with limits of 10 technologies and 40 characters. No frontend change is
 required to consume these views.
 
+### Image crop dialog
+
+`ImageCropDialog` closes when `onCropComplete` resolves. If it rejects, the dialog
+shows `imageCropDialog.saveError` and keeps the crop available for retry. Retrying
+clears the message. Image decoding and crop generation failures still show the
+unsupported-image message.
+
 ### Mobile text fields
 
 `Input`, `Textarea` and `MentionTextarea` keep compact `text-xs` and `text-sm`
